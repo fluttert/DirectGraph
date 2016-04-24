@@ -20,9 +20,9 @@ namespace Fluttert.DirectGraph
         int Edges();
 
         /// <summary>
-        /// Adds a vertex
+        /// Adds a vertex to the graph
         /// </summary>
-        /// <returns>Identifier of the added vertex</returns>
+        /// <returns>id (int) of the added vertex</returns>
         int AddVertex();
 
         /// <summary>

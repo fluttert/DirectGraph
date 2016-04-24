@@ -13,18 +13,22 @@ namespace Fluttert.DirectGraph
     {
         public DirectedGraph(int vertices)
         {
+            if (vertices < 0)
+            {
+                throw new ArgumentOutOfRangeException("No negative amount of vertices can exist");
+            }
             this.vertices = vertices;
             edges = 0;
-            adjacencyList = new List<int>[vertices];
+            adjacencyList = new List<List<int>>(vertices);
             addedEdges = new List<int[]>();
             for (int v = 0; v < vertices; v++)
             {
-                adjacencyList[v] = new List<int>();
+                AddVertex();
             }
         }
 
         private readonly int vertices;
-        private readonly List<int>[] adjacencyList;
+        private readonly List<List<int>> adjacencyList;
         private readonly List<int[]> addedEdges;
         private int edges;
 
@@ -41,12 +45,25 @@ namespace Fluttert.DirectGraph
         public int Edges() => edges;
 
         /// <summary>
+        /// Adds a vertex to the graph
+        /// </summary>
+        /// <returns>id (int) of the added vertex</returns>
+        public int AddVertex()
+        {
+            adjacencyList.Add(new List<int>());
+            return adjacencyList.Count - 1;
+        }
+
+        /// <summary>
         /// Adds an edge from a vertex to another vertex (can be the same)
         /// </summary>
         /// <param name="vertexFrom">Id of vertex where the edge starts</param>
         /// <param name="vertexTo">Id of vertex where the edge ends</param>
         public void AddEdge(int vertexFrom, int vertexTo)
         {
+            if (!IsVertexWithinBounds(vertexFrom) || !IsVertexWithinBounds(vertexTo)) {
+                throw new ArgumentOutOfRangeException($"Edge from {vertexFrom} to {vertexTo} is not possible. Max index is: {Vertices() -1 }");
+            }
             addedEdges.Add(new int[] { vertexFrom, vertexTo });
             adjacencyList[vertexFrom].Add(vertexTo);
             edges++;
@@ -96,9 +113,9 @@ namespace Fluttert.DirectGraph
             return reversedGraph;
         }
 
-        public int AddVertex()
+        private bool IsVertexWithinBounds(int vertexId)
         {
-            throw new NotImplementedException();
+            return vertexId >= 0 && vertexId < Vertices();
         }
     }
 }

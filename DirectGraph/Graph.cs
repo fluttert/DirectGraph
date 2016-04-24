@@ -9,7 +9,6 @@ namespace Fluttert.DirectGraph
     /// <summary>
     /// A simple undirected graph
     /// </summary>
-    /// <remarks>This is inspired on the book Algorithms 4th edition by Sedgewick & Wayne</remarks>
     public class Graph : IGraph
     {
         /// <summary>
@@ -19,7 +18,9 @@ namespace Fluttert.DirectGraph
 
         public Graph(int vertices)
         {
-            if (vertices < 0) { throw new ArgumentOutOfRangeException("No negative amount of vertices can exist"); }
+            if (vertices < 0) {
+                throw new ArgumentOutOfRangeException("No negative amount of vertices can exist");
+            }
             this.vertices = vertices;
             edges = 0;
             adjacencyList = new List<List<int>>(vertices);
@@ -49,6 +50,10 @@ namespace Fluttert.DirectGraph
         /// <returns>integer, amount of edges</returns>
         public int Edges() => edges;
 
+        /// <summary>
+        /// Adds a vertex to the graph
+        /// </summary>
+        /// <returns>id (int) of the added vertex</returns>
         public int AddVertex()
         {
             adjacencyList.Add(new List<int>());
