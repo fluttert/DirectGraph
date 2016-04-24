@@ -61,8 +61,9 @@ namespace Fluttert.DirectGraph
         /// <param name="vertexTo">Id of vertex where the edge ends</param>
         public void AddEdge(int vertexFrom, int vertexTo)
         {
-            if (!IsVertexWithinBounds(vertexFrom) || !IsVertexWithinBounds(vertexTo)) {
-                throw new ArgumentOutOfRangeException($"Edge from {vertexFrom} to {vertexTo} is not possible. Max index is: {Vertices() -1 }");
+            if (!GraphUtil.AreVerticesWithinBounds(this, vertexFrom, vertexTo))
+            {
+                throw new ArgumentOutOfRangeException($"Edge from {vertexFrom} to {vertexTo} is not possible. Max index is: {Vertices() - 1 }");
             }
             addedEdges.Add(new int[] { vertexFrom, vertexTo });
             adjacencyList[vertexFrom].Add(vertexTo);
@@ -111,11 +112,6 @@ namespace Fluttert.DirectGraph
                 }
             }
             return reversedGraph;
-        }
-
-        private bool IsVertexWithinBounds(int vertexId)
-        {
-            return vertexId >= 0 && vertexId < Vertices();
         }
     }
 }
