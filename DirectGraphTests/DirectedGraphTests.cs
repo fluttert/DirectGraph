@@ -30,6 +30,13 @@ namespace Fluttert.DirectGraphTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void CreateInvalidGraphWithNegativeAmountOfVertices()
+        {
+            var graph = new DirectedGraph(-1);
+        }
+
+        [TestMethod]
         public void DeepCopyGraph()
         {
             // a cube

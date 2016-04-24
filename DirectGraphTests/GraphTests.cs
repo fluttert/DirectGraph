@@ -1,5 +1,6 @@
 ﻿using Fluttert.DirectGraph;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 
 namespace Fluttert.DirectGraphTests
@@ -25,6 +26,12 @@ namespace Fluttert.DirectGraphTests
             Assert.IsTrue(graph.AdjecentVertices(1).Contains(0));
             Assert.IsTrue(graph.AdjecentVertices(2).Contains(0));
             Assert.IsFalse(graph.AdjecentVertices(1).Contains(3));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void CreateInvalidGraphWithNegativeAmountOfVertices() {
+            var graph = new Graph(-1);
         }
 
         [TestMethod]
