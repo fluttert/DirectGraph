@@ -7,35 +7,26 @@ using System.Threading.Tasks;
 namespace Fluttert.DirectGraph
 {
     /// <summary>
-    /// A simple undirected graph
+    /// Directed graph
     /// </summary>
-    /// <remarks>This is inspired on the book Algorithms 4th edition by Sedgewick & Wayne</remarks>
-    public class Graph : IGraph
+    public class DirectedGraph : IGraph
     {
-        /// <summary>
-        /// Overloaded constructor
-        /// </summary>
-        public Graph() : this(0) { }
-
-        public Graph(int vertices)
+        public DirectedGraph(int vertices)
         {
-            if (vertices < 0) { throw new ArgumentOutOfRangeException("No negative amount of vertices can exist"); }
             this.vertices = vertices;
             edges = 0;
-            adjacencyList = new List<List<int>>(vertices);
+            adjacencyList = new List<int>[vertices];
             addedEdges = new List<int[]>();
             for (int v = 0; v < vertices; v++)
             {
-                AddVertex();
+                adjacencyList[v] = new List<int>();
             }
         }
 
         private readonly int vertices;
-        private readonly List<List<int>> adjacencyList;
+        private readonly List<int>[] adjacencyList;
         private readonly List<int[]> addedEdges;
         private int edges;
-
-        #region IGraph methods
 
         /// <summary>
         /// Total amount of vertices in this graph
@@ -49,12 +40,6 @@ namespace Fluttert.DirectGraph
         /// <returns>integer, amount of edges</returns>
         public int Edges() => edges;
 
-        public int AddVertex()
-        {
-            adjacencyList.Add(new List<int>());
-            return adjacencyList.Count - 1;
-        }
-
         /// <summary>
         /// Adds an edge from a vertex to another vertex (can be the same)
         /// </summary>
@@ -64,12 +49,6 @@ namespace Fluttert.DirectGraph
         {
             addedEdges.Add(new int[] { vertexFrom, vertexTo });
             adjacencyList[vertexFrom].Add(vertexTo);
-
-            // add the edge the ohter way around; only if the edge is not a self-loop
-            if (vertexFrom != vertexTo)
-            {
-                adjacencyList[vertexTo].Add(vertexFrom);
-            }
             edges++;
         }
 
@@ -80,15 +59,19 @@ namespace Fluttert.DirectGraph
         /// <returns>List with ID's of connected vertices</returns>
         public IEnumerable<int> AdjecentVertices(int vertex) => adjacencyList[vertex];
 
-        #endregion IGraph methods
+        /// <summary>
+        /// Standard representation of the directed graph
+        /// </summary>
+        /// <returns>string</returns>
+        public override string ToString() => GraphUtil.Stringify(this);
 
         /// <summary>
         /// Creates a deepcopy of this graph
         /// </summary>
         /// <returns>Graph</returns>
-        public Graph DeepCopy()
+        public DirectedGraph DeepCopy()
         {
-            var copy = new Graph(Vertices());
+            var copy = new DirectedGraph(Vertices());
             for (int e = 0; e < addedEdges.Count; e++)
             {
                 copy.AddEdge(addedEdges[e][0], addedEdges[e][1]);
@@ -97,21 +80,25 @@ namespace Fluttert.DirectGraph
         }
 
         /// <summary>
-        /// Standard representation of the directed graph
+        /// Reverse the directed edges in the graph
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => GraphUtil.Stringify(this);
-
-        /// <summary>
-        /// Helper funtion to check whether or not a vertex is withing range
-        /// </summary>
-        /// <param name="vertexId"></param>
-        /// <returns></returns>
-        private bool IsVertexWithinBounds(int vertexId)
+        public DirectedGraph Reverse()
         {
-            return vertexId >= 0 && vertexId < Vertices();
+            var reversedGraph = new DirectedGraph(vertices);
+            for (int v = 0; v < vertices; v++)
+            {
+                foreach (var w in AdjecentVertices(v))
+                {
+                    reversedGraph.AddEdge(w, v);
+                }
+            }
+            return reversedGraph;
         }
 
-
+        public int AddVertex()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

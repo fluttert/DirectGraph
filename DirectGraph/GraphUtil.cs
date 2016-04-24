@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace DirectGraph
+namespace Fluttert.DirectGraph
 {
     internal class GraphUtil
     {

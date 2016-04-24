@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DirectGraph
+namespace Fluttert.DirectGraph
 {
     /// <summary>
     /// Interface for graphs

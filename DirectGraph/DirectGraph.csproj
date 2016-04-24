@@ -7,10 +7,11 @@
     <ProjectGuid>{E531469C-CC40-47DB-910F-15708040F86A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DirectGraph</RootNamespace>
+    <RootNamespace>Fluttert.DirectGraph</RootNamespace>
     <AssemblyName>DirectGraph</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DirectedGraph.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="GraphUtil.cs" />
     <Compile Include="IGraph.cs" />
