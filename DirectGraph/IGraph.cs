@@ -37,6 +37,6 @@ namespace Fluttert.DirectGraph
         /// </summary>
         /// <param name="vertex">id of vertex</param>
         /// <returns>List with ID's of connected vertices</returns>
-        IEnumerable<int> AdjecentVertices(int vertex);
+        IEnumerable<int> AdjacentVertices(int vertex);
     }
 }

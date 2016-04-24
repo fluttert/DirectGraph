@@ -17,7 +17,6 @@ namespace Fluttert.DirectGraph
             {
                 throw new ArgumentOutOfRangeException("No negative amount of vertices can exist");
             }
-            this.vertices = vertices;
             edges = 0;
             adjacencyList = new List<List<int>>(vertices);
             addedEdges = new List<int[]>();
@@ -27,7 +26,6 @@ namespace Fluttert.DirectGraph
             }
         }
 
-        private readonly int vertices;
         private readonly List<List<int>> adjacencyList;
         private readonly List<int[]> addedEdges;
         private int edges;
@@ -36,7 +34,7 @@ namespace Fluttert.DirectGraph
         /// Total amount of vertices in this graph
         /// </summary>
         /// <returns>integer, amount of vertices</returns>
-        public int Vertices() => vertices;
+        public int Vertices() => adjacencyList.Count;
 
         /// <summary>
         /// Total amount of edges in this graph
@@ -75,7 +73,7 @@ namespace Fluttert.DirectGraph
         /// </summary>
         /// <param name="vertex">id of vertex</param>
         /// <returns>List with ID's of connected vertices</returns>
-        public IEnumerable<int> AdjecentVertices(int vertex) => adjacencyList[vertex];
+        public IEnumerable<int> AdjacentVertices(int vertex) => adjacencyList[vertex];
 
         /// <summary>
         /// Standard representation of the directed graph
@@ -103,10 +101,10 @@ namespace Fluttert.DirectGraph
         /// <returns></returns>
         public DirectedGraph Reverse()
         {
-            var reversedGraph = new DirectedGraph(vertices);
-            for (int v = 0; v < vertices; v++)
+            var reversedGraph = new DirectedGraph(Vertices());
+            for (int v = 0; v < Vertices(); v++)
             {
-                foreach (var w in AdjecentVertices(v))
+                foreach (var w in AdjacentVertices(v))
                 {
                     reversedGraph.AddEdge(w, v);
                 }

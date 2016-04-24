@@ -22,11 +22,11 @@ namespace Fluttert.DirectGraphTests
 
             Assert.AreEqual(4, graph.Vertices());
             Assert.AreEqual(6, graph.Edges());
-            Assert.IsTrue(graph.AdjecentVertices(0).Contains(1));
-            Assert.IsTrue(graph.AdjecentVertices(2).Contains(3));
-            Assert.IsTrue(graph.AdjecentVertices(3).Contains(3));
-            Assert.IsFalse(graph.AdjecentVertices(1).Contains(0));
-            Assert.IsFalse(graph.AdjecentVertices(2).Contains(0));
+            Assert.IsTrue(graph.AdjacentVertices(0).Contains(1));
+            Assert.IsTrue(graph.AdjacentVertices(2).Contains(3));
+            Assert.IsTrue(graph.AdjacentVertices(3).Contains(3));
+            Assert.IsFalse(graph.AdjacentVertices(1).Contains(0));
+            Assert.IsFalse(graph.AdjacentVertices(2).Contains(0));
         }
 
         [TestMethod]
@@ -46,11 +46,14 @@ namespace Fluttert.DirectGraphTests
             graph.AddEdge(2, 3);
             graph.AddEdge(3, 0);
             graph.AddEdge(0, 2);
-            graph.AddEdge(3, 3);
-
+            
             var graph2 = graph.DeepCopy();
 
             Assert.AreEqual(graph.ToString(), graph2.ToString());
+            Assert.AreNotSame(graph, graph2);
+
+            graph.AddEdge(3, 3);
+            Assert.AreNotEqual(graph.ToString(), graph2.ToString());
             Assert.AreNotSame(graph, graph2);
         }
     }

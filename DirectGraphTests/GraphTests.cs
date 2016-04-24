@@ -9,7 +9,7 @@ namespace Fluttert.DirectGraphTests
     public class GraphsTests
     {
         [TestMethod]
-        public void CreateGraph()
+        public void CreateGraphWithPresetAmountOfVertices()
         {
             // a cube
             var graph = new Graph(4);
@@ -17,21 +17,66 @@ namespace Fluttert.DirectGraphTests
             graph.AddEdge(1, 2);
             graph.AddEdge(2, 3);
             graph.AddEdge(3, 0);
-            
+
             Assert.AreEqual(4, graph.Vertices());
-            Assert.AreEqual(6, graph.Edges());
-            Assert.IsTrue(graph.AdjecentVertices(0).Contains(1));
-            Assert.IsTrue(graph.AdjecentVertices(2).Contains(3));
-            Assert.IsTrue(graph.AdjecentVertices(3).Contains(3));
-            Assert.IsTrue(graph.AdjecentVertices(1).Contains(0));
-            Assert.IsTrue(graph.AdjecentVertices(2).Contains(0));
-            Assert.IsFalse(graph.AdjecentVertices(1).Contains(3));
+            Assert.AreEqual(4, graph.Edges());
+            Assert.IsTrue(graph.AdjacentVertices(0).Contains(1));
+            Assert.IsTrue(graph.AdjacentVertices(1).Contains(2));
+            Assert.IsTrue(graph.AdjacentVertices(2).Contains(3));
+            Assert.IsTrue(graph.AdjacentVertices(3).Contains(0));
+        }
+
+        [TestMethod]
+        public void CreateEmptyGraphAndAddVertices()
+        {
+            var graph = new Graph();
+            Assert.AreEqual(0, graph.Vertices());
+            Assert.AreEqual(0, graph.Edges());
+
+            int vertex1id = graph.AddVertex();
+            int vertex2id = graph.AddVertex();
+            Assert.AreEqual(0, vertex1id);
+            Assert.AreEqual(1, vertex2id);
+
+            graph.AddEdge(0, 1);
+            Assert.AreEqual(2, graph.Vertices());
+            Assert.AreEqual(1, graph.Edges());
+            Assert.IsTrue(graph.AdjacentVertices(0).Contains(1));
+            Assert.IsTrue(graph.AdjacentVertices(1).Contains(0));
+
+            // add the same edge again
+            graph.AddEdge(0, 1);
+            Assert.AreEqual(2, graph.Vertices());
+            Assert.AreEqual(2, graph.Edges());
+            Assert.IsTrue(graph.AdjacentVertices(0).Contains(1));
+            Assert.IsTrue(graph.AdjacentVertices(1).Contains(0));
+        }
+
+        [TestMethod]
+        public void CreateGraphWithSelfLoops()
+        {
+            var graph = new Graph(1);
+            Assert.AreEqual(1, graph.Vertices());
+            Assert.AreEqual(0, graph.Edges());
+
+            graph.AddEdge(0, 0);
+            Assert.AreEqual(1, graph.Edges());
+            Assert.IsTrue(graph.AdjacentVertices(0).Contains(0));
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void CreateInvalidGraphWithNegativeAmountOfVertices() {
+        public void CreateInvalidGraphWithNegativeAmountOfVertices()
+        {
             var graph = new Graph(-1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void AddInvalidEdge()
+        {
+            var graph = new Graph(2);
+            graph.AddEdge(0, 10);
         }
 
         [TestMethod]

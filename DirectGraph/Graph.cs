@@ -21,7 +21,6 @@ namespace Fluttert.DirectGraph
             if (vertices < 0) {
                 throw new ArgumentOutOfRangeException("No negative amount of vertices can exist");
             }
-            this.vertices = vertices;
             edges = 0;
             adjacencyList = new List<List<int>>(vertices);
             addedEdges = new List<int[]>();
@@ -31,7 +30,6 @@ namespace Fluttert.DirectGraph
             }
         }
 
-        private readonly int vertices;
         private readonly List<List<int>> adjacencyList;
         private readonly List<int[]> addedEdges;
         private int edges;
@@ -42,7 +40,7 @@ namespace Fluttert.DirectGraph
         /// Total amount of vertices in this graph
         /// </summary>
         /// <returns>integer, amount of vertices</returns>
-        public int Vertices() => vertices;
+        public int Vertices() => adjacencyList.Count();
 
         /// <summary>
         /// Total amount of edges in this graph
@@ -88,7 +86,7 @@ namespace Fluttert.DirectGraph
         /// </summary>
         /// <param name="vertex">id of vertex</param>
         /// <returns>List with ID's of connected vertices</returns>
-        public IEnumerable<int> AdjecentVertices(int vertex) => adjacencyList[vertex];
+        public IEnumerable<int> AdjacentVertices(int vertex) => adjacencyList[vertex];
 
         #endregion IGraph methods
 
