@@ -9,7 +9,7 @@ namespace Fluttert.DirectGraphTests
     public class DirectedGraphTests
     {
         [TestMethod]
-        public void CreateGraph()
+        public void CreateDirectedGraph()
         {
             // a cube
             var graph = new DirectedGraph(4);
@@ -30,7 +30,7 @@ namespace Fluttert.DirectGraphTests
         }
 
         [TestMethod]
-        public void CreateEmptyGraphAndAddVertices()
+        public void CreateEmptyDirectedGraphAndAddVertices()
         {
             var graph = new DirectedGraph();
             Assert.AreEqual(0, graph.Vertices());
@@ -45,10 +45,10 @@ namespace Fluttert.DirectGraphTests
             Assert.AreEqual(2, graph.Vertices());
             Assert.AreEqual(1, graph.Edges());
             Assert.IsTrue(graph.AdjacentVertices(0).Contains(1));
-            Assert.IsTrue(graph.AdjacentVertices(1).Contains(0));
+            Assert.IsFalse(graph.AdjacentVertices(1).Contains(0));
 
             // add the same edge again
-            graph.AddEdge(0, 1);
+            graph.AddEdge(1, 0);
             Assert.AreEqual(2, graph.Vertices());
             Assert.AreEqual(2, graph.Edges());
             Assert.IsTrue(graph.AdjacentVertices(0).Contains(1));
@@ -56,14 +56,34 @@ namespace Fluttert.DirectGraphTests
         }
 
         [TestMethod]
+        public void CreateDirectedGraphWithSelfLoops()
+        {
+            var graph = new DirectedGraph(1);
+            Assert.AreEqual(1, graph.Vertices());
+            Assert.AreEqual(0, graph.Edges());
+
+            graph.AddEdge(0, 0);
+            Assert.AreEqual(1, graph.Edges());
+            Assert.IsTrue(graph.AdjacentVertices(0).Contains(0));
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void CreateInvalidGraphWithNegativeAmountOfVertices()
+        public void CreateInvalidDirectedGraphWithNegativeAmountOfVertices()
         {
             var graph = new DirectedGraph(-1);
         }
 
         [TestMethod]
-        public void DeepCopyGraph()
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void DirectedGraphAddInvalidEdge()
+        {
+            var graph = new DirectedGraph(2);
+            graph.AddEdge(0, 10);
+        }
+
+        [TestMethod]
+        public void DeepCopyDirectedGraph()
         {
             // a cube
             var graph = new DirectedGraph(4);

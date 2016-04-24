@@ -77,7 +77,7 @@ namespace Fluttert.DirectGraphTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void AddInvalidEdge()
+        public void GraphAddInvalidEdge()
         {
             var graph = new Graph(2);
             graph.AddEdge(0, 10);
