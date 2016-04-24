@@ -7,15 +7,19 @@ using System.Threading.Tasks;
 namespace Fluttert.DirectGraph
 {
     /// <summary>
-    /// A simple undirected graph
+    /// An undirected graph
     /// </summary>
     public class Graph : IGraph
     {
         /// <summary>
-        /// Overloaded constructor
+        /// Empty constructor: empty undirected graph without vertices and edges
         /// </summary>
         public Graph() : this(0) { }
 
+        /// <summary>
+        /// Create a undirected graph with N amount of vertices
+        /// </summary>
+        /// <param name="vertices">Amount of vertices</param>
         public Graph(int vertices)
         {
             if (vertices < 0) {

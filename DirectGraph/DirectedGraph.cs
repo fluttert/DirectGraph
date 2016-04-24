@@ -11,6 +11,15 @@ namespace Fluttert.DirectGraph
     /// </summary>
     public class DirectedGraph : IGraph
     {
+        /// <summary>
+        /// Empty constructor: empty directed graph without vertices and edges
+        /// </summary>
+        public DirectedGraph() : this(0) { }
+
+        /// <summary>
+        /// Create a directed graph with N amount of vertices
+        /// </summary>
+        /// <param name="vertices">Amount of vertices</param>
         public DirectedGraph(int vertices)
         {
             if (vertices < 0)

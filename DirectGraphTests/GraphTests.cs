@@ -21,8 +21,12 @@ namespace Fluttert.DirectGraphTests
             Assert.AreEqual(4, graph.Vertices());
             Assert.AreEqual(4, graph.Edges());
             Assert.IsTrue(graph.AdjacentVertices(0).Contains(1));
+            Assert.IsTrue(graph.AdjacentVertices(0).Contains(3));
+            Assert.IsTrue(graph.AdjacentVertices(1).Contains(0));
             Assert.IsTrue(graph.AdjacentVertices(1).Contains(2));
+            Assert.IsTrue(graph.AdjacentVertices(2).Contains(1));
             Assert.IsTrue(graph.AdjacentVertices(2).Contains(3));
+            Assert.IsTrue(graph.AdjacentVertices(3).Contains(2));
             Assert.IsTrue(graph.AdjacentVertices(3).Contains(0));
         }
 
