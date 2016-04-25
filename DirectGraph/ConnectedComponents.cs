@@ -22,6 +22,7 @@ namespace Fluttert.DirectGraph
             componentIds = new int[graph.Vertices()];
             amountOfComponents = 0;
             vertices = graph.Vertices();
+            ProcessGraph(graph);
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace Fluttert.DirectGraph
         /// Total amount of components for this graph
         /// </summary>
         /// <returns>int</returns>
-        public int AmountOfComponents() => amountOfComponents;
+        public int AmountOfComponents => amountOfComponents;
 
         /// <summary>
         /// Dertermine if 2 vertices are in the same connected component
@@ -94,11 +95,11 @@ namespace Fluttert.DirectGraph
                 while (queue.Count > 0)
                 {
                     int vertex = queue.Dequeue();
-                    marked[v] = true;
-                    componentIds[v] = currentComponentId;
-                    foreach (int adjacentVertex in graph.AdjacentVertices(v))
+                    marked[vertex] = true;
+                    componentIds[vertex] = currentComponentId;
+                    foreach (int adjacentVertex in graph.AdjacentVertices(vertex))
                     {
-                        if (!marked[v])
+                        if (!marked[adjacentVertex])
                         {
                             queue.Enqueue(adjacentVertex);
                         }
