@@ -9,18 +9,18 @@ namespace Fluttert.DirectGraph
     /// <summary>
     /// An undirected graph
     /// </summary>
-    public class Graph : IGraph
+    public class UndirectedGraph : IGraph
     {
         /// <summary>
         /// Empty constructor: empty undirected graph without vertices and edges
         /// </summary>
-        public Graph() : this(0) { }
+        public UndirectedGraph() : this(0) { }
 
         /// <summary>
         /// Create a undirected graph with N amount of vertices
         /// </summary>
         /// <param name="vertices">Amount of vertices</param>
-        public Graph(int vertices)
+        public UndirectedGraph(int vertices)
         {
             if (vertices < 0) {
                 throw new ArgumentOutOfRangeException("No negative amount of vertices can exist");
@@ -98,9 +98,9 @@ namespace Fluttert.DirectGraph
         /// Creates a deepcopy of this graph
         /// </summary>
         /// <returns>Graph</returns>
-        public Graph DeepCopy()
+        public UndirectedGraph DeepCopy()
         {
-            var copy = new Graph(Vertices());
+            var copy = new UndirectedGraph(Vertices());
             for (int e = 0; e < addedEdges.Count; e++)
             {
                 copy.AddEdge(addedEdges[e][0], addedEdges[e][1]);

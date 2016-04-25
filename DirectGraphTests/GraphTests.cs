@@ -12,7 +12,7 @@ namespace Fluttert.DirectGraphTests
         public void CreateGraphWithPresetAmountOfVertices()
         {
             // a cube
-            var graph = new Graph(4);
+            var graph = new UndirectedGraph(4);
             graph.AddEdge(0, 1);
             graph.AddEdge(1, 2);
             graph.AddEdge(2, 3);
@@ -33,7 +33,7 @@ namespace Fluttert.DirectGraphTests
         [TestMethod]
         public void CreateEmptyGraphAndAddVertices()
         {
-            var graph = new Graph();
+            var graph = new UndirectedGraph();
             Assert.AreEqual(0, graph.Vertices());
             Assert.AreEqual(0, graph.Edges());
 
@@ -59,7 +59,7 @@ namespace Fluttert.DirectGraphTests
         [TestMethod]
         public void CreateGraphWithSelfLoops()
         {
-            var graph = new Graph(1);
+            var graph = new UndirectedGraph(1);
             Assert.AreEqual(1, graph.Vertices());
             Assert.AreEqual(0, graph.Edges());
 
@@ -72,14 +72,14 @@ namespace Fluttert.DirectGraphTests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CreateInvalidGraphWithNegativeAmountOfVertices()
         {
-            var graph = new Graph(-1);
+            var graph = new UndirectedGraph(-1);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void GraphAddInvalidEdge()
         {
-            var graph = new Graph(2);
+            var graph = new UndirectedGraph(2);
             graph.AddEdge(0, 10);
         }
 
@@ -87,7 +87,7 @@ namespace Fluttert.DirectGraphTests
         public void DeepCopyGraph()
         {
             // a cube
-            var graph = new Graph(4);
+            var graph = new UndirectedGraph(4);
             graph.AddEdge(0, 1);
             graph.AddEdge(1, 2);
             graph.AddEdge(2, 3);
