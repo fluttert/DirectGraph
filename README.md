@@ -1,7 +1,7 @@
 # DirectGraph
 A library of efficient graph algorithms for
 - Directed graphs
-- Undiredcted graphs
+- Undirected graphs
 - Trees
 
 ## Inspiration
